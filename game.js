@@ -7,6 +7,8 @@
   const nPipe = new Image();
   const sPipe = new Image();
 
+  let score = 0;
+
   let bX = 10;
   let bY = 150;
   let pX = cvs.width;
@@ -42,6 +44,17 @@
       pipe[i].x--
 
       //
+
+
+      if (pipe[i].x == -250) {
+        score++;
+        console.log(bird.x, bX, bY);
+      }
+
+      if (pipe[i].x <= (60) && bY <= (242 + pipe[i].y1)) {
+        console.log('bird dead');
+      }
+
       if (pipe[i].x == 250) {
         let y1 = -(Math.random() * 200)
         let y2 = (Math.random() * (400 - 125) + 125)
@@ -49,7 +62,7 @@
         if (Math.abs(y1 - y2) < 350) {
           gap = (350 - Math.abs(y1 - y2))
           y2 = y2 + gap
-          console.log(y2);
+          // console.log(y2);
         }
 
         pipe.push({
@@ -74,6 +87,10 @@
 
       }
     }
+
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#fff";
+    ctx.fillText("Score: "+score, 8, 20);
 
     requestAnimationFrame(draw);
 
