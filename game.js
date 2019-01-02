@@ -31,6 +31,19 @@
   nPipe.src = 'pipeNorth.png'
   sPipe.src = 'pipeSouth.png'
 
+  function changeBird() {
+    ird.src = 'deadBird.png'
+    gravity = 5
+    birdDead = true
+  }
+
+  function gameOver() {
+    if (bY >= 500) {
+    alert('GAME OVER')
+    }
+  }
+
+
   function draw() {
     ctx.drawImage(bg, 0, 0, 500, 500)
     ctx.drawImage(bird, bX, bY, 50, 50);
@@ -47,15 +60,23 @@
       //
 
 
-      if (pipe[i].x == -250) {
+      if (pipe[i].x == -250 && birdDead == false) {
         score++;
         console.log(bird.x, bX, bY);
       }
 
       if (pipe[i].x == 60 && ((bY <= (242 + pipe[i].y1)) || (bY >= pipe[i].y2))) {
         console.log('bird dead')
+        bird.src = 'deadBird.png'
         gravity = 5
         birdDead = true
+        //
+        // if (bY >= 500) {
+        //   console.log('GAME OVER');
+        // }
+
+        setInterval(gameOver, 10)
+
       }
 
       if (pipe[i].x == 250) {
