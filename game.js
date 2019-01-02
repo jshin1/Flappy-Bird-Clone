@@ -8,6 +8,7 @@
   const sPipe = new Image();
 
   let score = 0;
+  let birdDead = false;
 
   let bX = 10;
   let bY = 150;
@@ -20,7 +21,7 @@
     y : 0
   }
 
-  const gravity = 1;
+  let gravity = 1;
   let gap = 100;
 
 
@@ -51,8 +52,10 @@
         console.log(bird.x, bX, bY);
       }
 
-      if (pipe[i].x <= (60) && bY <= (242 + pipe[i].y1)) {
-        console.log('bird dead');
+      if (pipe[i].x == 60 && ((bY <= (242 + pipe[i].y1)) || (bY >= pipe[i].y2))) {
+        console.log('bird dead')
+        gravity = 5
+        birdDead = true
       }
 
       if (pipe[i].x == 250) {
@@ -104,7 +107,7 @@
   }
 
   document.addEventListener('keydown', e => {
-    if (e.code === 'Space') {
+    if (e.code === 'Space' && birdDead == false) {
       setTimeout(flap, 100)
       bY -= 20;
       bird.src = 'frame-3.png'
