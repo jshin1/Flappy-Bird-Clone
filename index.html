@@ -7,8 +7,19 @@
   </head>
 
   <body>
-    <canvas id="canvas" width="500" height="500"></canvas>
+    <div id="nameForm">
+      <form action="/" method="post">
+        <label for="name"></label>
+        <input id="input" type="text" name="name" placeholder="Please enter name!">
+        <button type="button" name="button">Enter</button>
+      </form>
+    </div>
 
+    <div id="leaders">
+      <h2>LEADERBOARD</h2>
+    </div>
+
+    <canvas id="canvas" width="500" height="500"></canvas>
     <script src="game.js"></script>
   </body>
 </html>

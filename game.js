@@ -2,13 +2,25 @@
 
   const ctx = canvas.getContext('2d')
 
+  let nameForm = document.getElementById('nameForm')
+  let playerName = document.getElementById('input')
+  let leaderboard = document.getElementById('leaders')
+
   const bird = new Image();
   const bg = new Image();
   const nPipe = new Image();
   const sPipe = new Image();
+  const image = new Image();
+
+  const flySound = new Audio();
+  const scoreSound = new Audio();
+  flySound.src = 'fly.mp3';
+  scoreSound.src = 'score.mp3';
 
   let score = 0;
   let birdDead = false;
+  let gameO = false;
+  let speed = 2
 
   let bX = 10;
   let bY = 150;
@@ -30,16 +42,45 @@
   bird.id = 'bird'
   nPipe.src = 'pipeNorth.png'
   sPipe.src = 'pipeSouth.png'
+  image.src = 'gameover.png'
 
-  function changeBird() {
-    ird.src = 'deadBird.png'
-    gravity = 5
-    birdDead = true
+  // function changeBird() {
+  //   ird.src = 'deadBird.png'
+  //   gravity = 5
+  //   birdDead = true
+  // }
+
+  let localData = ""
+  let toBeSorted = []
+
+  function getData() {
+    fetch('http://localhost:3000/api/v1/players')
+    .then(response => response.json())
+    .then(data => {
+      localData = data
+
+      localData.forEach(d => {
+        toBeSorted.push({'name': d.name, 'score': d.score})
+      })
+      toBeSorted.sort((a, b) =>
+        b.score - a.score
+      )
+
+      for (let i = 0; i < 5; i++) {
+        console.log(toBeSorted);
+        leaderboard.innerHTML += `
+        <li> ${toBeSorted[i].name}: ${toBeSorted[i].score} </li>
+        `
+      }
+    })
   }
 
+  console.log(toBeSorted);
+
   function gameOver() {
-    if (bY >= 500) {
-    alert('GAME OVER')
+    if (bY >= 490) {
+      gameO = true
+      // alert('GAME OVER')
     }
   }
 
@@ -48,34 +89,48 @@
     ctx.drawImage(bg, 0, 0, 500, 500)
     ctx.drawImage(bird, bX, bY, 50, 50);
     bY += gravity
+
     for (let i = 0; i < pipe.length; i++) {
+      let newSpeed = pipe[i].x - speed
+      // console.log(newSpeed)
+      pipe[i].x = newSpeed
       ctx.drawImage(nPipe, pipe[i].x, pipe[i].y1);
       ctx.drawImage(sPipe, pipe[i].x, pipe[i].y2);
 
       // ctx.drawImage(nPipe, pipe[i].x, 0);
       // ctx.drawImage(sPipe, pipe[i].x, 350);
       // pX--
-      pipe[i].x--
 
       //
 
-
       if (pipe[i].x == -250 && birdDead == false) {
         score++;
-        console.log(bird.x, bX, bY);
+        scoreSound.play()
+        // console.log("SPEEDING UP")
+        // speed = score%3 + 1
+        // console.log(bird.x, bX, bY);
       }
 
-      if (pipe[i].x == 60 && ((bY <= (242 + pipe[i].y1)) || (bY >= pipe[i].y2))) {
-        console.log('bird dead')
+      if (gameO == true) {
+        ctx.drawImage(image, 170, 170, 150, 150)
+      }
+
+      if (((pipe[i].x == 60 && ((bY <= (242 + pipe[i].y1)) || (bY >= pipe[i].y2))) || bY >= 490) && birdDead == false) {
+        // console.log('bird dead')
         bird.src = 'deadBird.png'
         gravity = 5
         birdDead = true
+        gameO = true
+
+        nameForm.style.display = 'block';
+
+
         //
         // if (bY >= 500) {
         //   console.log('GAME OVER');
         // }
 
-        setInterval(gameOver, 10)
+        // setInterval(gameOver, 10)
 
       }
 
@@ -89,11 +144,19 @@
           // console.log(y2);
         }
 
-        pipe.push({
+        let data = {
           x: pX,
           y1: y1,
           y2: y2
-        })
+        }
+
+        pipe.push(data)
+
+        // if (i > 4) {
+        //   speed = 3
+        // }
+
+        // speed = i%3 + 1
 
         // if (pipe[i].y1 + pipe[i].y2 <= 500) {
         //   pipe[i].y2 + 300
@@ -125,6 +188,7 @@
 
   function flap() {
     bird.src = 'frame-1.png'
+    flySound.play()
   }
 
   document.addEventListener('keydown', e => {
@@ -132,6 +196,29 @@
       setTimeout(flap, 100)
       bY -= 20;
       bird.src = 'frame-3.png'
+    }
+  })
+
+  document.addEventListener('click', e => {
+    e.preventDefault();
+    if (e.target.type == 'button') {
+      leaderboard.innerHTML += `
+      YOUR SCORE: ${score} <br>
+      How does it compare with the best? <br>
+      `
+      leaderboard.style.display = 'block';
+      fetch('http://localhost:3000/api/v1/players', {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: playerName.value,
+          score: score
+        })
+      })
+      .then(getData)
     }
   })
 

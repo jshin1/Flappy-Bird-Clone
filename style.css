@@ -1,7 +1,20 @@
-#bird {
-  z-index: 100;
+#nameForm {
+  display: none;
 }
 
-#bg {
-  z-index: 10;
+#leaders {
+  display: none;
+}
+
+* {
+  background-image: url(bgbg.jpg);
+}
+
+#nameForm, #leaders {
+  text-align: center;
+}
+
+#canvas {
+  display: block;
+  margin: 25px auto;
 }
