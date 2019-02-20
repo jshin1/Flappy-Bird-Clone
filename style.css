@@ -6,15 +6,21 @@
   display: none;
 }
 
-* {
-  background-image: url(bgbg.jpg);
+.body {
+  background-image: url(backgroundimage.png);
 }
 
 #nameForm, #leaders {
   text-align: center;
+  /* background-color: #fff; */
 }
 
 #canvas {
   display: block;
   margin: 25px auto;
+}
+
+h1 {
+  font-family: 'Orbitron', sans-serif;
+  text-align: center;
 }

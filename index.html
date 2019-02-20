@@ -4,18 +4,33 @@
     <meta charset="utf-8">
     <title>Flappy Bird Clone Game</title>
     <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+
+
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script src="semantic/dist/semantic.min.js"></script>
+
   </head>
 
-  <body>
+  <body class='body'>
+
+    <h1>Flappy Bird Clone</h1>
     <div id="nameForm">
       <form action="/" method="post">
+        <div class='ui input'>
         <label for="name"></label>
         <input id="input" type="text" name="name" placeholder="Please enter name!">
-        <button type="button" name="button">Enter</button>
+        <button class="ui inverted primary button" type="button" name="button">Enter</button>
+      </div>
       </form>
     </div>
 
-    <div id="leaders">
+    <div id="leaders" class="ui raised very padded text container segment">
       <h2>LEADERBOARD</h2>
     </div>
 

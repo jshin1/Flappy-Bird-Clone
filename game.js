@@ -69,7 +69,7 @@
       for (let i = 0; i < 5; i++) {
         console.log(toBeSorted);
         leaderboard.innerHTML += `
-        <li> ${toBeSorted[i].name}: ${toBeSorted[i].score} </li>
+        <div> ${toBeSorted[i].name}: ${toBeSorted[i].score} </div>
         `
       }
     })
@@ -204,7 +204,7 @@
     if (e.target.type == 'button') {
       leaderboard.innerHTML += `
       YOUR SCORE: ${score} <br>
-      How does it compare with the best? <br>
+      How does it compare with the best? <br><br>
       `
       leaderboard.style.display = 'block';
       fetch('http://localhost:3000/api/v1/players', {
