@@ -203,8 +203,9 @@
     e.preventDefault();
     if (e.target.type == 'button') {
       leaderboard.innerHTML += `
-      YOUR SCORE: ${score} <br>
-      How does it compare with the best? <br><br>
+      YOUR SCORE: ${score} <br><br>
+      Scores cannot be fetched or saved as the backend has not been deployed. <br><br>
+
       `
       leaderboard.style.display = 'block';
       fetch('http://localhost:3000/api/v1/players', {

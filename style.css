@@ -7,20 +7,81 @@
 }
 
 .body {
-  background-image: url(backgroundimage.png);
+  background: linear-gradient(-45deg,#23D5AB, #4EDD74);
+  background-size: 400% 400%;
+  -webkit-animation: Gradient 15s ease infinite;
+  -moz-animation: Gradient 15s ease infinite;
+  animation: Gradient 15s ease infinite;
+}
+
+@-webkit-keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}
+
+@-moz-keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}
+
+@keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
 }
 
 #nameForm, #leaders {
   text-align: center;
-  /* background-color: #fff; */
 }
 
 #canvas {
   display: block;
   margin: 25px auto;
+  border-radius: 5px 50px 5px;
 }
 
-h1 {
+.header {
   font-family: 'Orbitron', sans-serif;
   text-align: center;
+  color: #fff;
+  font-size: 80px;
+  padding-top: 50px;
+  padding-bottom: 25px;
+  margin: 25px;
+  text-shadow: 0 1px 0 #ccc,
+             0 2px 0 #c9c9c9,
+             0 3px 0 #bbb,
+             0 4px 0 #b9b9b9,
+             0 5px 0 #aaa,
+             0 6px 1px rgba(0,0,0,.1),
+             0 0 5px rgba(0,0,0,.1),
+             0 1px 3px rgba(0,0,0,.3),
+             0 3px 5px rgba(0,0,0,.2),
+             0 5px 10px rgba(0,0,0,.25),
+             0 10px 10px rgba(0,0,0,.2),
+             0 20px 20px rgba(0,0,0,.15);
+}
+
+.header-container {
+  /* padding: 50px; */
 }
