@@ -44,12 +44,6 @@
   sPipe.src = 'pipeSouth.png'
   image.src = 'gameover.png'
 
-  // function changeBird() {
-  //   ird.src = 'deadBird.png'
-  //   gravity = 5
-  //   birdDead = true
-  // }
-
   let localData = ""
   let toBeSorted = []
 
@@ -80,7 +74,6 @@
   function gameOver() {
     if (bY >= 490) {
       gameO = true
-      // alert('GAME OVER')
     }
   }
 
@@ -92,23 +85,13 @@
 
     for (let i = 0; i < pipe.length; i++) {
       let newSpeed = pipe[i].x - speed
-      // console.log(newSpeed)
       pipe[i].x = newSpeed
       ctx.drawImage(nPipe, pipe[i].x, pipe[i].y1);
       ctx.drawImage(sPipe, pipe[i].x, pipe[i].y2);
 
-      // ctx.drawImage(nPipe, pipe[i].x, 0);
-      // ctx.drawImage(sPipe, pipe[i].x, 350);
-      // pX--
-
-      //
-
       if (pipe[i].x == -250 && birdDead == false) {
         score++;
         scoreSound.play()
-        // console.log("SPEEDING UP")
-        // speed = score%3 + 1
-        // console.log(bird.x, bX, bY);
       }
 
       if (gameO == true) {
@@ -116,22 +99,12 @@
       }
 
       if (((pipe[i].x == 60 && ((bY <= (242 + pipe[i].y1)) || (bY >= pipe[i].y2))) || bY >= 490) && birdDead == false) {
-        // console.log('bird dead')
         bird.src = 'deadBird.png'
         gravity = 5
         birdDead = true
         gameO = true
 
         nameForm.style.display = 'block';
-
-
-        //
-        // if (bY >= 500) {
-        //   console.log('GAME OVER');
-        // }
-
-        // setInterval(gameOver, 10)
-
       }
 
       if (pipe[i].x == 250) {
@@ -141,7 +114,6 @@
         if (Math.abs(y1 - y2) < 350) {
           gap = (350 - Math.abs(y1 - y2))
           y2 = y2 + gap
-          // console.log(y2);
         }
 
         let data = {
@@ -151,27 +123,6 @@
         }
 
         pipe.push(data)
-
-        // if (i > 4) {
-        //   speed = 3
-        // }
-
-        // speed = i%3 + 1
-
-        // if (pipe[i].y1 + pipe[i].y2 <= 500) {
-        //   pipe[i].y2 + 300
-        // }
-
-
-
-        //  = {
-        //   x: cvs.width,
-        //   y: Math.floor(50 + pY)
-        // };
-        // ctx.drawImage(nPipe, pX, 10 );
-        // ctx.drawImage(sPipe, pX, pY + 100);
-        // pX--
-
       }
     }
 
@@ -180,8 +131,6 @@
     ctx.fillText("Score: "+score, 8, 20);
 
     requestAnimationFrame(draw);
-
-
   }
 
   draw()
@@ -222,9 +171,3 @@
       .then(getData)
     }
   })
-
-  // bird.onload = () => {
-  //   ctx.drawImage(bird, 10, 20)
-  //   ctx.drawImage(bg, 10, 20)
-  //
-  // }
